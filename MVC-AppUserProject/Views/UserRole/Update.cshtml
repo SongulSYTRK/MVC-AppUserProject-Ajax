@@ -13,6 +13,8 @@
                     <h3 class="box-title">Update UserRole</h3>
                 </div>
                 <form action="/UserRole/Update" method="post">
+                   
+                    <input type="hidden" name="Id" value="@Model.Id" />
                     <div class="box-body">
                         <div class="form-group">
                             <label for="RoleName">Role Name</label>

@@ -42,8 +42,8 @@
                                             <a href="/AppUser/Details/@appUser.Id" class="btn btn-primary btn-sm">Details</a>
                                         </td>
                                         <td>
-                                            @*<a href="/AppUser/Delete/@appUser.Id" class="btn btn-warning btn-sm">Delete</a>*@
-                                            <input type="button" onclick="Delete(@appUser.Id)" value="Delete" name="Delete" class="btn btn-danger btn-sm" />
+                                            <a href="/AppUser/Delete/@appUser.Id" class="btn btn-warning btn-sm">Delete</a>
+                                            
                                         </td>
                                     </tr>
                                 }
@@ -58,13 +58,3 @@
         </div>
     </center>
 </div>
-<script>
-    function Delete(id)
-    {
-        $.ajax({
-            url: "/AppUser/Delete/" + id,
-            type: "POST",
-            success: function () { $("#a_" + id).remove();}
-        });
-    }
-</script>

@@ -3,6 +3,7 @@ using MVC_AppUserProject.Models.Entities.Abstract;
 using MVC_AppUserProject.Models.Entities.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -57,8 +58,13 @@ namespace MVC_AppUserProject.Controllers
 
         public ActionResult List()
         {
-            var appUserList = db.AppUsers.Where(x => x.status != Status.Passive).ToList();
-            return View(appUserList);
+            ///[version-1]
+            //var appUserList = db.AppUsers.Where(x => x.status != Status.Passive).ToList();
+            //return View(appUserList);
+
+
+           /// [verion-2 SP]
+            return View(db.AppUsers.SqlQuery("execute GetProcess").ToList());
         }
         #endregion
 
@@ -67,7 +73,7 @@ namespace MVC_AppUserProject.Controllers
         #region Detail
         public ActionResult Details(int id)
         {
-            return View(db.AppUsers.FirstOrDefault(x => x.Id == id));
+            return View(db.AppUsers.SqlQuery("execute GetProcess").FirstOrDefault(x => x.Id == id));
         }
         #endregion
 
@@ -78,7 +84,7 @@ namespace MVC_AppUserProject.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(x=>x.Id==id);
+            AppUser appUser = db.AppUsers.SqlQuery("execute GetProcess").FirstOrDefault(x=>x.Id==id);
             UpdateAppUserDTO model = new UpdateAppUserDTO();
             model.FirstName = appUser.FirstName;
             model.LastName = appUser.LastName;
@@ -93,8 +99,10 @@ namespace MVC_AppUserProject.Controllers
             AppUser appUser = db.AppUsers.FirstOrDefault(x => x.Id == model.Id);
             if (ModelState.IsValid)
             {
-                appUser.FirstName = model.FirstName;
-                appUser.LastName = model.LastName;
+               // var param= new  SqlParameter("@id, @firstName,  @lastname, @UserRoleId", model.Id, model.FirstName, model.LastName, model.UserRoleId);
+               // db.Database.SqlQuery<AppUser>("execute UpdateProcess  @firstName,  @lastname, @UserRoleId", param).ToList();
+                appUser.FirstName = model.FirstName;                    
+                appUser.LastName = model.LastName;                       
                 appUser.UserRoleId = model.UserRoleId;
                 appUser.UpdateDate = DateTime.Now;
                 appUser.status = Status.Modified;                
@@ -113,25 +121,17 @@ namespace MVC_AppUserProject.Controllers
 
 
         #region Delete
-        //public ActionResult Delete (int id)
-        //{
-        //    AppUser appUser = db.AppUsers.FirstOrDefault(x=>x.Id==id);
-        //    appUser.status = Status.Passive;
-        //    appUser.DeleteDate = DateTime.Now;
-        
-        //    db.SaveChanges();
-        //    ViewBag.alert = 1;
-        //    return RedirectToAction("List");
-        //}
-        public JsonResult Delete(int id)
+        public ActionResult Delete(int id)
         {
-            AppUser appUser = db.AppUsers.FirstOrDefault(x => x.Id == id);
-            appUser.status = Status.Passive;
-            appUser.DeleteDate = DateTime.Now;
-            db.SaveChanges();
-            ViewBag.alert = 1;
-            return Json("");
+            // AppUser appUser = db.AppUsers.FirstOrDefault(x => x.Id == id);
+            //appUser.status = Status.Passive;
+            //appUser.DeleteDate = DateTime.Now;     
+            // ViewBag.alert = 1;
+            //  return RedirectToAction("List");
+           db.Database.SqlQuery<AppUser>("execute DeleteProcess @id", new SqlParameter("@id", id)).FirstOrDefault(x => x.Id == id);
+            return RedirectToAction("List");
         }
+        
         #endregion
     }
 }

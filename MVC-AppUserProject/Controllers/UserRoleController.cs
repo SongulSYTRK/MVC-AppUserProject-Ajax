@@ -84,6 +84,7 @@ namespace MVC_AppUserProject.Controllers
             model.Description = UserRole.Description;
             model.Salery = UserRole.Salery;
             model.UserRole = db.UserRoles.Where(x =>x.status != Status.Passive).ToList();
+
             return View(model);
         }
 
@@ -100,7 +101,7 @@ namespace MVC_AppUserProject.Controllers
                 UserRole.status = Status.Modified;
                 db.SaveChanges();
                 ViewBag.alert = 1;
-                return Json(UserRole)
+                return Json(UserRole);
             }
             else
             {
