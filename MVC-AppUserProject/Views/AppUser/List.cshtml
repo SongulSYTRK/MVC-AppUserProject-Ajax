@@ -1,0 +1,70 @@
+﻿@model List<MVC_AppUserProject.Models.Entities.Concrete.AppUser>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="container" style="margin-top:20px">
+    <center>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h4 class="box-title">AppUser List</h4>
+                    </div>
+                    <div class="box-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
+                                    <th>User Role</th>
+
+                                    <th>Update</th>
+                                    <th>Detail</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var appUser in Model)
+                                {
+                                    <tr>
+                                        <td>@appUser.Id</td>
+                                        <td>@appUser.FirstName</td>
+                                        <td>@appUser.LastName</td>
+                                        <td>@appUser.UserRole.RoleName</td>
+
+                                        <td>
+                                            <a href="/AppUser/Update/@appUser.Id" class="btn btn-success btn-sm">Update</a>
+                                        </td>
+                                        <td>
+                                            <a href="/AppUser/Details/@appUser.Id" class="btn btn-primary btn-sm">Details</a>
+                                        </td>
+                                        <td>
+                                            @*<a href="/AppUser/Delete/@appUser.Id" class="btn btn-warning btn-sm">Delete</a>*@
+                                            <input type="button" onclick="Delete(@appUser.Id)" value="Delete" name="Delete" class="btn btn-danger btn-sm" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <a href="/AppUser/Create" class="btn btn-primary btn-block">Create New AppUser</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
+</div>
+<script>
+    function Delete(id)
+    {
+        $.ajax({
+            url: "/AppUser/Delete/" + id,
+            type: "POST",
+            success: function () { $("#a_" + id).remove();}
+        });
+    }
+</script>

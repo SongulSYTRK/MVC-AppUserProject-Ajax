@@ -1,0 +1,63 @@
+﻿@model MVC_AppUserProject.Models.DataTransferObjects.CreateUserRoleDTO
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="container" style="margin-top:20px">
+    <div class="row">
+        <div class="col-sm-6">
+            @Html.Partial("/Views/Shared/Partial/_AlertMessage.cshtml")
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Create UserRole</h3>
+                </div>
+                <form action="/UserRole/Create" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="RoleName">Role Name</label>
+                            <input class="form-control" name="RoleName" placeholder="User Role Name" type="text" />
+                            <span class="field-validation-valid" data-valmsg-for="RoleName" data-valmsg-replace="true"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Description">Description</label>
+                            <input class="form-control" name="Description" placeholder="Description" type="text">
+                            <span class="field-validation-valid" data-valmsg-for="Description" data-valmsg-replace="true"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="Salery">Salery</label>
+                            <input class="form-control" name="Salery" placeholder="Salery" type="text">
+                            <span class="field-validation-valid" data-valmsg-for="Salery" data-valmsg-replace="true"></span>
+                        </div>                                             
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" style="float:right">Submit</button>
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer">
+                        <a class="btn btn-warning btn-block" href="/UserRole/List?Length=8">Back to RoleList</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".btn btn-primary").click(function ()
+    {
+        $.ajax({
+            url: "/UserRole/Create/" + model,
+            type: "POST",
+            dataType: "json",
+            data:
+            {
+                "model": model
+            },
+            success: function () { $("#a_" + model).add(); }
+        })
+    })
+
+</script>

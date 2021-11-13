@@ -1,0 +1,59 @@
+﻿@model MVC_AppUserProject.Models.DataTransferObjects.CreateAppUserDTO
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+    <div class="container" style="margin-top: 20px">
+
+        <div class="row">
+            <div class="col-sm-6">
+                
+                @Html.Partial("/Views/Shared/Partial/_AlertMessage.cshtml")
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create AppUser</h3>
+                    </div>
+                    <form role="form" method="post" action="/AppUser/Create">
+                        <div class="box-body">
+                            <div class="form-group">
+
+                                @Html.LabelFor(x => x.FirstName)
+                                @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control from-success", @placeholder = "Firstname" })
+                                @Html.ValidationMessageFor(x => x.FirstName)
+
+                            </div>
+                            <div class="form-group">
+
+                                @Html.LabelFor(x => x.LastName)
+                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "lastname" })
+                                @Html.ValidationMessageFor(x => x.LastName)
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="UserRoleId">Choose a Role</label>
+                                <select name="UserRoleId" class="form-control">
+                                    @foreach (var UserRole in Model.UserRole)
+                                    {
+                                        <option value="@UserRole.Id">@UserRole.RoleName</option>
+                                    }
+                                </select>
+                                <span class="field-validation-valid" data-valmsg-for="UserRoleId" data-valmsg-replace="true"></span>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success" style="float:right">Submit</button>
+                            </div>
+                        </div>
+
+                        <div class="box-footer">
+                            @Html.ActionLink("Show to List", "List", "AppUser", new { @class = "btn btn-warning btn-block", @type = "button" })
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+

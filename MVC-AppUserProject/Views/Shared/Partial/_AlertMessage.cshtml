@@ -1,0 +1,19 @@
+﻿
+
+@using MVC_AppUserProject.Models.Helpers;
+.
+
+@if (ViewBag.alert== 1)
+{
+    <div class="alert alert-success alert-dismissable">
+        <h4><i class="icon fa fa-check">succesfull</i></h4>
+        @AlertMessage.SuccessMessage
+    </div>
+}
+else if (ViewBag.alert == 2)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <h4><i class="icon fa fa-check">Failed</i></h4>
+        @AlertMessage.FailedMessage
+    </div>
+}

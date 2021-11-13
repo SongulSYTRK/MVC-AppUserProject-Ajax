@@ -1,0 +1,16 @@
+﻿@model MVC_AppUserProject.Models.Entities.Concrete.AppUser
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<h2>AppUser Informations</h2>
+
+<h2>Details </h2>
+
+<h4>Id: @Model.Id</h4>
+<h4>First Name: @Model.FirstName</h4>
+<h4>LastName: @Model.LastName</h4>
+<h4>Role: @Model.UserRole.RoleName</h4>
+<h4>Status: @Model.status</h4>
+<h4>Update Date : @Model.UpdateDate</h4>
+<h4>Create Date: @Model.CreateDate</h4>
