@@ -29,26 +29,28 @@
                             <tbody>
                                 @foreach (var userRole in Model)
                                 {
-                                <tr>
-                                    <td>@userRole.Id</td>
-                                    <td>@userRole.RoleName</td>
-                                    <td>@userRole.Description</td>
-                                    <td>@userRole.Salery</td>
+                                   
+                                    <tr id="a_@userRole.Id">
+
+                                        <td>@userRole.Id</td>
+                                        <td>@userRole.RoleName</td>
+                                        <td>@userRole.Description</td>
+                                        <td>@userRole.Salery</td>
 
 
-                                    <td>
-                                        <a href="/UserRole/Update/@userRole.Id" class="btn btn-success btn-sm">Update</a>
-                                    </td>
-                                    <td>
-                                        <a href="/UserRole/Details/@userRole.Id" class="btn btn-primary btn-sm">Details</a>
-                                    </td>
-                                    <td>
-                                        @*<a href="/UserRole/Delete/@userRole.Id" class="btn btn-warning btn-sm">Delete</a>*@
-                                        <input type="button" onclick="Delete(@userRole.Id)" value="Delete" name="Delete" class="btn btn-warning btn-sm" />
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
+                                        <td>
+                                            <a href="/UserRole/Update/@userRole.Id" class="btn btn-success btn-sm">Update</a>
+                                        </td>
+                                        <td>
+                                            <a href="/UserRole/Details/@userRole.Id" class="btn btn-primary btn-sm">Details</a>
+                                        </td>
+                                        <td>
+                                            @*<a href="/UserRole/Delete/@userRole.Id" class="btn btn-warning btn-sm">Delete</a>*@
+                                            <input type="button" onclick="Delete('@userRole.Id')" value="Delete" name="Delete" class="btn btn-warning btn-sm" />
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
                         </table>
                     </div>
                     <div class="box-footer">
@@ -80,9 +82,9 @@
     {
         
         $.ajax({
-            url: "/Category/Delete/" + id,
+            url: "/UserRole/Delete/" + id,
             type: "POST",
-            success: function () { $("#a_" + id).fadeOut(); }
+            success: function () { $("#a_"+id).fadeOut(); }
         });
     }
 </script>

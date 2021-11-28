@@ -49,14 +49,15 @@
     $(".btn btn-primary").click(function ()
     {
         $.ajax({
-            url: "/UserRole/Create/" + model,
+            url: @Url.Action("Create","UserRole"),
             type: "POST",
             dataType: "json",
-            data:
+            data: {"model":model}
+            
+            success: function (data)
             {
-                "model": model
-            },
-            success: function () { $("#a_" + model).add(); }
+                $("#a_" + model).add();
+            }
         })
     })
 
